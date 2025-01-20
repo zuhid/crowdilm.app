@@ -17,12 +17,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.14.2
   flutter_lints: ^5.0.0
 flutter:
   uses-material-design: true
   assets:
-    - assets/icons/ci.png
+    - assets/db/
   fonts:
     - family: Scheherazade
       fonts:

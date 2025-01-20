@@ -1,5 +1,6 @@
 import 'package:crowdilm/models/aya.dart';
 import 'package:crowdilm/models/quran_line.dart';
+import 'package:flutter/services.dart';
 import 'package:sqlite3/sqlite3.dart';
 import 'package:path_provider/path_provider.dart';
 import '../models/line.dart';
@@ -13,67 +14,16 @@ class CrowdilmDatabase {
   Future open() async {
     directory = (await getApplicationDocumentsDirectory()).path;
     database = sqlite3.open('$directory/crowdilm.db');
-    buildLine();
-    buildQuran();
-    buildQuranLine();
-    buildSura();
-    buildSetting();
+    await buildTables('assets/db/line.sql');
+    await buildTables('assets/db/quran.sql');
+    await buildTables('assets/db/quran_line.sql');
+    await buildTables('assets/db/sura.sql');
+    await buildTables('assets/db/setting.sql');
   }
 
-  buildLine() {
-    database!.execute('''create table if not exists line(
-  id integer not null
-, surah integer not null
-, aya integer not null
-, manzil integer not null
-, juz integer not null
-, hizb integer not null
-, ruku integer not null
-, page integer not null
-, primary key(id)
-);''');
-  }
-
-  buildQuran() {
-    database!.execute('''create table if not exists quran(
-  id text not null
-, language text not null
-, name text not null
-, name_english text not null
-, quran_type text not null
-, primary key(id)
-);''');
-  }
-
-  buildQuranLine() {
-    database!.execute('''create table if not exists quran_line (
-  quran_id text not null
-, line_id integer not null
-, text text not null
-, primary key(quran_id, line_id)
-, constraint fk_quran_quran_id_quran_id foreign key (quran_id) REFERENCES quran(id)
-, constraint fk_line_line_id_line_id foreign key (line_id) REFERENCES line(id)
-);''');
-  }
-
-  buildSura() {
-    database!.execute('''create table if not exists sura(
-  id integer not null
-, ayas integer not null
-, name_arabic text not null
-, name_english text not null
-, revelation_city text not null
-, revelation_order integer not null
-, primary key(id)
-);''');
-  }
-
-  buildSetting() {
-    database!.execute('''create table if not exists setting(
-  key text not null
-, value text not null
-, primary key(key)
-);''');
+  buildTables(String path) async {
+    var script = await rootBundle.loadString(path);
+    database!.execute(script);
   }
 
   addQurans(List<Quran> qurans) {
