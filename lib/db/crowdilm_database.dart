@@ -130,6 +130,12 @@ order by quran_line.line_id
     return suras;
   }
 
+  Sura getSura(int suraId) {
+    var result = database!.select('select * from sura where id=?', [suraId]);
+    return Sura(result.first['id'], result.first['ayas'], result.first['name_arabic'], result.first['name_english'], result.first['revelation_city'],
+        result.first['revelation_order']);
+  }
+
   Map<String, String> getSettings() {
     var resultSet = database!.select('select * from setting');
     Map<String, String> settings = {};

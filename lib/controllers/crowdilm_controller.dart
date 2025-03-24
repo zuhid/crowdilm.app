@@ -56,6 +56,10 @@ class CrowdilmController {
     return list;
   }
 
+  Sura getSura(int suraId) {
+    return database.getSura(suraId);
+  }
+
   Map<String, String> getSettings() {
     return database.getSettings();
   }

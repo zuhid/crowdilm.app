@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/services.dart';
 import 'package:html/parser.dart';
 import 'package:crowdilm/main.dart';
@@ -108,6 +110,8 @@ class _QuranItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var sura = crowdilmController.getSura(this.surah);
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.black,
@@ -116,9 +120,13 @@ class _QuranItem extends StatelessWidget {
       margin: const EdgeInsets.all(1.5),
       child: Column(
         children: [
-          if (surah != 9 && ayaNumber == 1)
-            Text('بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ',
+          if (ayaNumber == 1)
+            Text("${sura.nameArabic} - ${sura.nameEnglish}",
                 textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontFamily: 'Scheherazade', fontSize: double.parse(quran1Size))),
+          if ((surah != 1 && surah != 9) && ayaNumber == 1)
+            Text('بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontFamily: 'Scheherazade', fontSize: max(double.parse(quran1Size), double.parse(quran2Size)))),
           Text(quran1,
               textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontFamily: 'Scheherazade', fontSize: double.parse(quran1Size))),
           Text(
