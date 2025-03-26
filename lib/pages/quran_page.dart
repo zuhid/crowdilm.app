@@ -110,7 +110,8 @@ class _QuranItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var sura = crowdilmController.getSura(this.surah);
+    var sura = crowdilmController.getSura(surah);
+    var headerSize = max(double.parse(quran1Size), double.parse(quran2Size));
 
     return Container(
       decoration: BoxDecoration(
@@ -121,14 +122,24 @@ class _QuranItem extends StatelessWidget {
       child: Column(
         children: [
           if (ayaNumber == 1)
-            Text("${sura.nameArabic} - ${sura.nameEnglish}",
-                textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontFamily: 'Scheherazade', fontSize: double.parse(quran1Size))),
+            Text(
+              "${sura.nameEnglish} - ${sura.nameArabic}",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white, fontFamily: 'Scheherazade', fontSize: headerSize),
+            ),
           if ((surah != 1 && surah != 9) && ayaNumber == 1)
-            Text('بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontFamily: 'Scheherazade', fontSize: max(double.parse(quran1Size), double.parse(quran2Size)))),
+            Text(
+              'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white, fontFamily: 'Scheherazade', fontSize: headerSize),
+            ),
           Text(quran1,
-              textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontFamily: 'Scheherazade', fontSize: double.parse(quran1Size))),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'Scheherazade',
+                fontSize: double.parse(quran1Size),
+              )),
           Text(
             quran2,
             textAlign: TextAlign.center,

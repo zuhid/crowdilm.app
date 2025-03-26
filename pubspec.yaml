@@ -1,6 +1,6 @@
 name: crowdilm
 description: "A new Flutter project."
-version: 0.2.19+19
+version: 0.2.20+20
 environment:
   sdk: ^3.6.0
 dependencies:
