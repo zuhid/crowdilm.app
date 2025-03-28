@@ -1,5 +1,6 @@
 # crowdilm-app-flutter
 
+`flutter create . --project-name crowdilm --org com.zuhid` -- create or recreate the flutter app
 CrowdIlm appliation written in flutter
 
 # Setup Development Environment
